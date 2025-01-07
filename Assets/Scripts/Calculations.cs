@@ -6,9 +6,15 @@ using UnityEngine.UI;
 
 public class Calculations : MonoBehaviour
 {
+    private float multi;
+    private int gen = 0;
+    private float final;
     public Button first;
+    public Button second;
+    public Button third;
     public TextMeshProUGUI points;
-    private int time = 1;
+    public TextMeshProUGUI thridUpgrade;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +24,39 @@ public class Calculations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.deltaTime == time)
+        if(first.GetComponent<First>().bought == true)
         {
-            points.text = (int.Parse(points.text) + 1).ToString();
-            time += 1;
+            gen = 1;
+        }
+        if(second.GetComponent<Second>().bought == true)
+        {
+            multi = 2;
+        }
+        if(third.GetComponent<Third>().bought == true && (int.Parse(points.text) >= 1))
+        {
+            multi += (int.Parse(points.text)/100);
+            thridUpgrade.text = "x" +(1+(int.Parse(points.text)/100)).ToString("F2");
+        }
+        final = multi * gen;
+    }
+
+    void StartGen()
+    {
+        if (first.GetComponent<First>().bought == true && second.GetComponent<Second>().bought == false)
+        {
+            final = gen;
+        }
+       
+            points.text =  (int.Parse(points.text)+final).ToString();
+            print(final);
+        
+    }
+
+    public void Repeat()
+    {
+        if (first.GetComponent<First>().bought == true)
+        {
+            InvokeRepeating("StartGen", 0, 1);
         }
     }
     

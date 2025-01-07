@@ -6,20 +6,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class First : MonoBehaviour
+public class Third : MonoBehaviour
 {
     public bool bought = false;
-    public EventSystem eventSystem;
+    
     int point;
-    int price = 1;
+    int price = 15;
     public TextMeshProUGUI points;
     public Button bitton;
     // Start is called before the first frame update
-     void Start()
+    void Start()
     {
-        point = int.Parse(points.text);
+        
         bitton.interactable = false;
-        eventSystem.GetComponent<Calculations>().Repeat();
+        
         
     }
 
@@ -27,7 +27,7 @@ public class First : MonoBehaviour
     void Update()
     {
         point = int.Parse(points.text);
-        if(point == price && bought == false)
+        if(point >= price && bought == false)
         {
             bitton.interactable = true;
         }
@@ -37,8 +37,7 @@ public class First : MonoBehaviour
     public void OnButtonClick()
     {
         bought = !bought;
-        eventSystem.GetComponent<Calculations>().Repeat();
-        bitton.interactable = false ;
+        bitton.interactable = true ;
         points.text = (int.Parse(points.text) - price).ToString();
     }
 }
