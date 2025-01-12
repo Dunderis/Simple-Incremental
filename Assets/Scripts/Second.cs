@@ -27,7 +27,7 @@ public class Second : MonoBehaviour
     void Update()
     {
         point = int.Parse(points.text);
-        if(point == price && bought == false)
+        if(point >= price && bought == false)
         {
             bitton.interactable = true;
         }

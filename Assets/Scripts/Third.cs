@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Third : MonoBehaviour
 {
     public bool bought = false;
-    
+    public EventSystem eventSystem;
     int point;
     int price = 15;
     public TextMeshProUGUI points;
@@ -37,7 +37,8 @@ public class Third : MonoBehaviour
     public void OnButtonClick()
     {
         bought = !bought;
-        bitton.interactable = true ;
+        bitton.interactable = false ;
         points.text = (int.Parse(points.text) - price).ToString();
+        eventSystem.GetComponent<Calculations>().Repeat();
     }
 }
