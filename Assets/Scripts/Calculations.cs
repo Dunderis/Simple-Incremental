@@ -6,22 +6,25 @@ using UnityEngine.UI;
 
 public class Calculations : MonoBehaviour
 {
-    private float multi = 1;
-    float preMulti;
+    private double multi = 1;
+    double preMulti;
     private int gen = 0;
     private float genSpeed = 5;
-    private float final;
+    private double final;
     public Button first;
     public Button second;
     public Button third;
+    public Button fourth;
     public TextMeshProUGUI points;
+    public double secretPoints;
+    public double pointsChange;
     public TextMeshProUGUI Cps;
     
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        secretPoints = 1;
     }
 
     // Update is called once per frame
@@ -40,16 +43,27 @@ public class Calculations : MonoBehaviour
         {
             genSpeed = 1;
         }
-        if (third.GetComponent<Third>().bought == true && (int.Parse(points.text) >= 1))
+        if (fourth.GetComponent<Fourth>().bought == true && secretPoints >= 1)
         {
-            float add;
-            add = (int.Parse(points.text) / 100);
+            double add;
+            int divider = 100;
+            add = secretPoints / divider;
             multi = preMulti + add;
-            print(add + " third up");
-
+            
+        
         }
         final = multi * gen;
-        Cps.text = final.ToString() + " p/s";
+        Cps.text = (final/genSpeed).ToString("F1") + " p/s";
+        Convert(secretPoints);
+        if (secretPoints >= 1000)
+        {
+            points.text = pointsChange.ToString("F2") + "K";
+        }
+        else
+        {
+            points.text = secretPoints.ToString();
+        }
+        print(secretPoints);
     }
 
     void StartGen()
@@ -58,12 +72,18 @@ public class Calculations : MonoBehaviour
         {
             final = gen;
         }
-        
-       
-            points.text =  (int.Parse(points.text)+final).ToString();
-            
+            secretPoints += final;
 
 
+
+    }
+
+    void Convert(double seconds)
+    {
+        if (seconds >=1000 )
+        {
+            pointsChange = seconds / 1000;
+        }
     }
 
     public void Repeat()
@@ -74,7 +94,7 @@ public class Calculations : MonoBehaviour
         }
         else if (third.GetComponent<Third>().bought == true)
         {
-            genSpeed = 1;
+            genSpeed = 4;
             CancelInvoke("StartGen");
             InvokeRepeating("StartGen",0,genSpeed);
             

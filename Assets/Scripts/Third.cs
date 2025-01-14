@@ -10,9 +10,9 @@ public class Third : MonoBehaviour
 {
     public bool bought = false;
     public EventSystem eventSystem;
-    int point;
+    double point;
     int price = 15;
-    public TextMeshProUGUI points;
+    public TextMeshProUGUI priceText;
     public Button bitton;
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class Third : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        point = int.Parse(points.text);
+        point = eventSystem.GetComponent<Calculations>().secretPoints;
         if(point >= price && bought == false)
         {
             bitton.interactable = true;
@@ -38,7 +38,7 @@ public class Third : MonoBehaviour
     {
         bought = !bought;
         bitton.interactable = false ;
-        points.text = (int.Parse(points.text) - price).ToString();
+        eventSystem.GetComponent<Calculations>().secretPoints = eventSystem.GetComponent<Calculations>().secretPoints - price;
         eventSystem.GetComponent<Calculations>().Repeat();
     }
 }
