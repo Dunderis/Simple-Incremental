@@ -11,12 +11,12 @@ public class Fourth : MonoBehaviour
     public bool bought = false;
     
     double point;
-    float price = 25;
+    float price = 15;
     public EventSystem eventSystem;
     public TextMeshProUGUI priceText;
     public TextMeshProUGUI BuyingTimes;
     private int max = 10;
-    private int buying = 0;
+    public int buying = 0;
     public Button bitton;
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,11 @@ public class Fourth : MonoBehaviour
             bitton.interactable = true;
             
         }
-        priceText.text = "Price: " + price;
+        else
+        {
+            bitton.interactable = false;
+        }
+        priceText.text = "Price: " + price.ToString("F2");
         BuyingTimes.text = buying.ToString()+ "/"+max.ToString();
        
     }
@@ -48,6 +52,6 @@ public class Fourth : MonoBehaviour
         bitton.interactable = false ;
         eventSystem.GetComponent<Calculations>().secretPoints = eventSystem.GetComponent<Calculations>().secretPoints - price;
         buying += 1;
-        price = price * 1.5f;
+        price = price * 1.1f;
     }
 }

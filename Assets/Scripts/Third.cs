@@ -30,6 +30,11 @@ public class Third : MonoBehaviour
         if(point >= price && bought == false)
         {
             bitton.interactable = true;
+            
+        }
+        else
+        {
+            bitton.interactable = false;
         }
        
     }
